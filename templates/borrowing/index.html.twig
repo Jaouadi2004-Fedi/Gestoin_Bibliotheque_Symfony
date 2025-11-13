@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Borrowing List{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-primary">📚 Borrowings List</h1>
+        <a href="{{ path('app_borrowing_new') }}" class="btn btn-success">
+            ➕ New Borrowing
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date Borrowed</th>
+                        <th>Book</th>
+                        <th>Student</th>
+                        <th>Returned</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for borrowing in borrowings %}
+                    <tr>
+                        <td>{{ borrowing.dateBorrowed ? borrowing.dateBorrowed|date('Y-m-d') : '' }}</td>
+                        <td>{{ borrowing.book.title }}</td>
+                        <td>{{ borrowing.student.name ~ ' ' ~ borrowing.student.surname }}</td>
+                        <td>
+                            {% if borrowing.bookReturned %}
+                                <span class="badge bg-success">Oui</span>
+                            {% else %}
+                                <span class="badge bg-danger">Non</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('app_borrowing_show', {'id': borrowing.id}) }}" class="btn btn-info btn-sm text-white">
+                                Voir
+                            </a>
+                            <a href="{{ path('app_borrowing_edit', {'id': borrowing.id}) }}" class="btn btn-warning btn-sm">
+                                Modifier
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-3">
+                            Aucun emprunt trouvé.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
