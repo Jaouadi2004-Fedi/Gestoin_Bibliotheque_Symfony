@@ -1,15 +1,50 @@
 {% extends 'base.html.twig' %}
-{% block title %}Most popular books{% endblock %}
+
+{% block title %}Livres Populaires{% endblock %}
+
 {% block body %}
-<h1>The most popular books</h1>
-<table class="table table-striped">
-<tr>
-<th>Title</th>
-<th>Borrowed</th>
-</tr>
-{% for book in books %}
-<tr><td>{{ book.title }}</td><td>{{ book.howMany}}</td></tr>
-{% endfor %}
-</table>
+<div class="row mb-4 align-items-center">
+    <div class="col-md-12">
+        <h1 class="fw-bold mb-0 text-dark">
+            <i class="bi bi-star-fill text-warning"></i> Livres les plus populaires
+        </h1>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 text-muted">
+            <i class="bi bi-graph-up"></i> Classement des emprunts
+        </h5>
+    </div>
+     <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="thead-vivid-blue">
+                    <tr>
+                        <th scope="col" class="ps-4">Titre du livre</th>
+                        <th scope="col" class="text-center">Nombre d'emprunts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td class="ps-4 fw-bold text-dark">{{ book.title }}</td>
+                        <td class="text-center">
+                            <span class="badge bg-primary rounded-pill">{{ book.howMany }}</span>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2" class="text-center py-5 text-muted">Acuun donnée disponible.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+
         

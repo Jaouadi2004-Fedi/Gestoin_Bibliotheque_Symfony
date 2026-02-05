@@ -7,6 +7,8 @@ use App\Entity\Borrowing;
 use App\Entity\Student;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,15 +17,34 @@ class BorrowingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateBorrowed')
-            ->add('bookReturned')
+            ->add('dateBorrowed', DateType::class, [
+                'label' => 'Date d\'emprunt',
+                'widget' => 'single_text',
+                'attr' => ['class' => 'form-control'],
+                'required' => true,
+            ])
+            ->add('bookReturned', CheckboxType::class, [
+                'label' => 'Livre rendu',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'],
+            ])
             ->add('student', EntityType::class, [
                 'class' => Student::class,
-                'choice_label' => 'id',
+                'choice_label' => function (Student $student) {
+                    return $student->getName() . ' ' . $student->getSurname();
+                },
+                'label' => 'Étudiant',
+                'placeholder' => 'Sélectionnez un étudiant',
+                'attr' => ['class' => 'form-select'],
+                'required' => true,
             ])
             ->add('book', EntityType::class, [
                 'class' => Book::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
+                'label' => 'Livre',
+                'placeholder' => 'Sélectionnez un livre',
+                'attr' => ['class' => 'form-select'],
+                'required' => true,
             ])
         ;
     }

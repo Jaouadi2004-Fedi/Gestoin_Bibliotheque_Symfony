@@ -1,64 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Authors List{% endblock %}
+{% block title %}Liste des Auteurs{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-  <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-primary fw-bold">
-      <i class="bi bi-person-lines-fill"></i> Authors List
-    </h1>
-    <a href="{{ path('app_author_new') }}" class="btn btn-success shadow-sm">
-      <i class="bi bi-plus-circle"></i> Add New Author
-    </a>
-  </div>
-
-  <!-- Table Card -->
-  <div class="card shadow-sm border-0">
-    <div class="card-header bg-dark text-white">
-      <h5 class="mb-0">
-        <i class="bi bi-people-fill"></i> Registered Authors
-      </h5>
+<div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+        <h1 class="fw-bold mb-0 text-dark">
+            <i class="bi bi-people-fill text-primary"></i> Liste des Auteurs
+        </h1>
     </div>
+    <div class="col-md-6 text-md-end">
+        <a href="{{ path('app_author_new') }}" class="btn btn-submit shadow-sm">
+            <i class="bi bi-plus-circle"></i> Ajouter un nouvel auteur
+        </a>
+    </div>
+</div>
 
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 text-muted">
+            <i class="bi bi-list-check"></i> Auteurs enregistrés
+        </h5>
+    </div>
     <div class="card-body p-0">
-      <table class="table table-striped table-hover mb-0 align-middle">
-        <thead class="table-dark text-center">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for author in authors %}
-            <tr class="text-center">
-              <td>{{ author.id }}</td>
-              <td>{{ author.name }}</td>
-              <td>
-                <div class="btn-group" role="group">
-                  <a href="{{ path('app_author_show', {'id': author.id}) }}"
-                     class="btn btn-info btn-sm text-white">
-                    <i class="bi bi-eye"></i> View
-                  </a>
-                  <a href="{{ path('app_author_edit', {'id': author.id}) }}"
-                     class="btn btn-warning btn-sm">
-                    <i class="bi bi-pencil-square"></i> Edit
-                  </a>
-                </div>
-              </td>
-            </tr>
-          {% else %}
-            <tr>
-              <td colspan="4" class="text-center text-muted py-4">
-                <i class="bi bi-inbox"></i> No authors found.
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="thead-vivid-blue">
+                    <tr>
+                        <th scope="col" class="ps-4">ID</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col" class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for author in authors %}
+                    <tr>
+                        <td class="ps-4 fw-bold text-secondary">#{{ author.id }}</td>
+                        <td>{{ author.name }}</td>
+                        <td>{{ author.surname }}</td>
+                        <td class="text-end pe-4">
+                            <div class="btn-group">
+                                <a href="{{ path('app_author_show', {'id': author.id}) }}" class="btn btn-sm btn-outline-info" title="Voir">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_author_edit', {'id': author.id}) }}" class="btn btn-sm btn-outline-warning" title="Modifier">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                            Aucun auteur trouvé.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}
+
+

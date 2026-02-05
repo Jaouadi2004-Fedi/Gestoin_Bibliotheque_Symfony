@@ -1,4 +1,41 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'form-card'}}) }}
+<div class="card-header">
+    <h3>
+        <i class="fas fa-book"></i>
+        {{ button_label|default('Nouveau Livre') == 'Nouveau Livre' ? 'Nouveau Livre' : 'Modifier le livre' }}
+    </h3>
+</div>
+
+<div class="form-group">
+    <div class="form-label">
+        <i class="fas fa-heading"></i>
+        <span>{{ form_label(form.title) }}</span>
+    </div>
+    {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le titre du livre'}}) }}
+    {{ form_errors(form.title) }}
+    <div class="form-help">Entrez le titre complet du livre</div>
+</div>
+
+<div class="form-group">
+    <div class="form-label">
+        <i class="fas fa-users"></i>
+        <span>{{ form_label(form.authors) }}</span>
+    </div>
+    {{ form_widget(form.authors, {'attr': {'class': 'form-select', 'size': '5'}}) }}
+    {{ form_errors(form.authors) }}
+    <div class="form-help">Maintenez Ctrl (ou Cmd sur Mac) pour sélectionner plusieurs auteurs</div>
+</div>
+
+<div class="form-actions">
+    <div class="d-flex gap-3 justify-content-end align-items-center">
+        <a href="{{ path('app_book_index') }}" class="btn-cancel">
+            <i class="fas fa-times"></i> Annuler
+        </a>
+        <button type="submit" class="btn-submit">
+            <i class="fas fa-save"></i> {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+</div>
+
 {{ form_end(form) }}
+

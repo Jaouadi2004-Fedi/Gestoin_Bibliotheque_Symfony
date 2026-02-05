@@ -1,53 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Borrowing List{% endblock %}
+{% block title %}Liste des Emprunts{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="text-primary">📚 Borrowings List</h1>
-        <a href="{{ path('app_borrowing_new') }}" class="btn btn-success">
-            ➕ New Borrowing
+<div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+        <h1 class="fw-bold mb-0 text-dark">
+            <i class="bi bi-bookmarks-fill text-primary"></i> Liste des Emprunts
+        </h1>
+    </div>
+    <div class="col-md-6 text-md-end">
+        <a href="{{ path('app_borrowing_new') }}" class="btn btn-submit shadow-sm">
+            <i class="bi bi-plus-circle"></i> Nouvel Emprunt
         </a>
     </div>
+</div>
 
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-0">
-            <table class="table table-striped table-hover mb-0">
-                <thead class="table-dark">
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="thead-vivid-blue">
                     <tr>
-                        <th>Date Borrowed</th>
-                        <th>Book</th>
-                        <th>Student</th>
-                        <th>Returned</th>
-                        <th class="text-center">Actions</th>
+                        <th class="ps-4">Date d'emprunt</th>
+                        <th>Livre</th>
+                        <th>Étudiant</th>
+                        <th>Rendu</th>
+                        <th class="text-end pe-4">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for borrowing in borrowings %}
                     <tr>
-                        <td>{{ borrowing.dateBorrowed ? borrowing.dateBorrowed|date('Y-m-d') : '' }}</td>
-                        <td>{{ borrowing.book.title }}</td>
+                        <td class="ps-4">{{ borrowing.dateBorrowed ? borrowing.dateBorrowed|date('Y-m-d') : '' }}</td>
+                        <td class="fw-bold text-dark">{{ borrowing.book.title }}</td>
                         <td>{{ borrowing.student.name ~ ' ' ~ borrowing.student.surname }}</td>
                         <td>
                             {% if borrowing.bookReturned %}
-                                <span class="badge bg-success">Oui</span>
+                                <span class="badge bg-success-subtle text-success border border-success">Oui</span>
                             {% else %}
-                                <span class="badge bg-danger">Non</span>
+                                <span class="badge bg-danger-subtle text-danger border border-danger">Non</span>
                             {% endif %}
                         </td>
-                        <td class="text-center">
-                            <a href="{{ path('app_borrowing_show', {'id': borrowing.id}) }}" class="btn btn-info btn-sm text-white">
-                                Voir
-                            </a>
-                            <a href="{{ path('app_borrowing_edit', {'id': borrowing.id}) }}" class="btn btn-warning btn-sm">
-                                Modifier
-                            </a>
+                        <td class="text-end pe-4">
+                            <div class="btn-group">
+                                <a href="{{ path('app_borrowing_show', {'id': borrowing.id}) }}" class="btn btn-sm btn-outline-info" title="Voir">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_borrowing_edit', {'id': borrowing.id}) }}" class="btn btn-sm btn-outline-warning" title="Modifier">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="5" class="text-center text-muted py-3">
+                        <td colspan="5" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-3"></i>
                             Aucun emprunt trouvé.
                         </td>
                     </tr>
@@ -58,3 +67,5 @@
     </div>
 </div>
 {% endblock %}
+
+

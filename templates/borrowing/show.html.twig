@@ -1,30 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Borrowing{% endblock %}
+{% block title %}Emprunt{% endblock %}
 
 {% block body %}
-    <h1>Borrowing</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="form-card">
+            <div class="card-header bg-white border-bottom">
+                <h3 class="mb-0 text-dark">
+                    <i class="bi bi-journal-bookmark"></i> Détails de l'emprunt
+                </h3>
+            </div>
+            
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <th class="w-25 text-muted bg-light ps-3">Id</th>
+                        <td class="fw-bold">{{ borrowing.id }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted bg-light ps-3">Date d'emprunt</th>
+                        <td>{{ borrowing.dateBorrowed ? borrowing.dateBorrowed|date('Y-m-d') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted bg-light ps-3">Livre rendu</th>
+                        <td>
+                             {% if borrowing.bookReturned %}
+                                <span class="badge bg-success-subtle text-success border border-success">Oui</span>
+                            {% else %}
+                                <span class="badge bg-danger-subtle text-danger border border-danger">Non</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ borrowing.id }}</td>
-            </tr>
-            <tr>
-                <th>DateBorrowed</th>
-                <td>{{ borrowing.dateBorrowed ? borrowing.dateBorrowed|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>BookReturned</th>
-                <td>{{ borrowing.bookReturned ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_borrowing_index') }}">back to list</a>
-
-    <a href="{{ path('app_borrowing_edit', {'id': borrowing.id}) }}">edit</a>
-
-    {{ include('borrowing/_delete_form.html.twig') }}
+            <div class="form-actions d-flex justify-content-between mt-4 pt-3 border-top">
+                <a href="{{ path('app_borrowing_index') }}" class="btn btn-cancel">
+                    <i class="fas fa-arrow-left"></i> Retour
+                </a>
+                
+                <div class="d-flex gap-2">
+                    <a href="{{ path('app_borrowing_edit', {'id': borrowing.id}) }}" class="btn btn-warning text-dark">
+                        <i class="bi bi-pencil-square"></i> Modifier
+                    </a>
+                    {{ include('borrowing/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+

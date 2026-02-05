@@ -1,4 +1,74 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'form-card bg-white'}}) }}
+<div class="card-header bg-white border-bottom">
+    <h3 class="text-dark">
+        <i class="fas fa-book-reader text-primary"></i>
+        {{ button_label|default('Nouvel Emprunt') == 'Nouvel Emprunt' ? 'Nouvel Emprunt' : 'Modifier l\'emprunt' }}
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="form-label text-muted">
+                <i class="fas fa-user-graduate"></i>
+                <span>{{ form_label(form.student) }}</span>
+            </div>
+            {{ form_widget(form.student, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.student) }}
+            <div class="form-help">Sélectionnez l'étudiant qui emprunte le livre</div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="form-label text-muted">
+                <i class="fas fa-book"></i>
+                <span>{{ form_label(form.book) }}</span>
+            </div>
+            {{ form_widget(form.book, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.book) }}
+            <div class="form-help">Sélectionnez le livre emprunté</div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="form-label text-muted">
+                <i class="fas fa-calendar-alt"></i>
+                <span>{{ form_label(form.dateBorrowed) }}</span>
+            </div>
+            {{ form_widget(form.dateBorrowed, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.dateBorrowed) }}
+            <div class="form-help">Sélectionnez la date d'emprunt</div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group pt-4">
+            <div class="form-check">
+                {{ form_widget(form.bookReturned, {'attr': {'class': 'form-check-input'}}) }}
+                <label class="form-check-label text-dark fw-bold" for="{{ form.bookReturned.vars.id }}">
+                    <i class="fas fa-check-circle text-success"></i> Livre rendu
+                </label>
+                {{ form_errors(form.bookReturned) }}
+            </div>
+            <div class="form-help">Cochez cette case si le livre a été rendu</div>
+        </div>
+    </div>
+</div>
+
+<div class="form-actions text-end border-top pt-3 mt-4">
+    <a href="{{ path('app_borrowing_index') }}" class="btn btn-cancel me-2">
+        <i class="fas fa-times"></i> Annuler
+    </a>
+    <button type="submit" class="btn btn-submit">
+        <i class="fas fa-save"></i> 
+        <span>{{ button_label|default('Enregistrer') }}</span>
+    </button>
+</div>
+
 {{ form_end(form) }}
+
+

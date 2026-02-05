@@ -1,13 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Borrowing{% endblock %}
+{% block title %}Modifier l'emprunt{% endblock %}
 
 {% block body %}
-    <h1>Edit Borrowing</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="mb-4 text-center">
+            <h2 class="fw-bold text-dark">
+                <i class="fas fa-edit text-primary"></i>
+                Modifier l'emprunt
+            </h2>
+            <p class="text-muted">Mettre à jour les informations de l'emprunt</p>
+        </div>
+        
+        {{ include('borrowing/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <a href="{{ path('app_borrowing_index') }}" class="text-decoration-none text-muted">
+                 <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
 
-    {{ include('borrowing/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_borrowing_index') }}">back to list</a>
-
-    {{ include('borrowing/_delete_form.html.twig') }}
+            {{ include('borrowing/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+

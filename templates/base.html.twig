@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}Welcome!{% endblock %}</title>
+  <title>{% block title %}Bienvenue !{% endblock %}</title>
 
   <link rel="icon" href="data:image/svg+xml,<svg
   xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text
@@ -15,6 +15,191 @@
           rel="stylesheet" 
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
           crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        color: #212529;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .form-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(0,0,0,0.05);
+      }
+      .form-card .card-header {
+        background: transparent;
+        color: #333;
+        border-bottom: 1px solid #eee;
+        border-radius: 12px 12px 0 0;
+        padding: 0 0 1.5rem 0;
+        margin-bottom: 2rem;
+      }
+      .form-card .card-header h3 {
+        margin: 0;
+        font-weight: 700;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .form-label i {
+        color: #0d6efd;
+        width: 20px;
+      }
+      .form-control, .form-select {
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        color: #212529;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        transition: all 0.2s ease-in-out;
+      }
+      .form-control:focus, .form-select:focus {
+        background-color: #fff;
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        outline: none;
+      }
+      .form-control::placeholder {
+        color: #adb5bd;
+      }
+      .form-check {
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        border: 1px solid #e9ecef;
+      }
+      .form-check-input {
+        background-color: #fff;
+        border-color: #adb5bd;
+      }
+      .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+      }
+      .form-actions {
+        border-top: 1px solid #eee;
+        padding-top: 1.5rem;
+        margin-top: 2rem;
+      }
+      .btn-submit {
+        background: #0d6efd;
+        border: 1px solid #0d6efd;
+        border-radius: 8px;
+        padding: 0.6rem 1.5rem;
+        font-weight: 600;
+        font-size: 1rem;
+        color: white;
+        transition: all 0.2s;
+        box-shadow: 0 2px 4px rgba(13, 110, 253, 0.2);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .btn-submit:hover {
+        background: #0b5ed7;
+        border-color: #0a58ca;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+        color: white;
+      }
+      .btn-submit:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+      .btn-submit i {
+        font-size: 1rem;
+        margin-right: 0.25rem;
+      }
+      .btn-submit span {
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+      .btn-cancel {
+        background: white;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 0.6rem 1.5rem;
+        font-weight: 500;
+        font-size: 1rem;
+        color: #495057;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .btn-cancel:hover {
+        background: #f8f9fa;
+        border-color: #c4c8cb;
+        color: #212529;
+        text-decoration: none;
+      }
+      .btn-cancel:active {
+        background: #e9ecef;
+      }
+      .btn-cancel i {
+        font-size: 1rem;
+      }
+      .form-errors {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+      }
+      .form-help {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+      }
+      /* Table Light Modern Styles */
+      .table {
+        color: #212529;
+        border-color: #dee2e6;
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+      .table thead th {
+        border-bottom: 2px solid #dee2e6;
+        background-color: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        padding: 1rem;
+      }
+      .table td {
+        padding: 1rem;
+        vertical-align: middle;
+        border-bottom: 1px solid #f1f3f5;
+      }
+      .table-hover tbody tr:hover {
+        color: #212529;
+        background-color: #f8f9fa;
+      }
+    </style>
   {% endblock %}
 
   {# Scripts JS #}
@@ -27,7 +212,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="{{ path('app_student_index') }}">📘 LibraryManager</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
@@ -41,42 +226,42 @@
 
         <li class="nav-item">
           <a class="nav-link {% if app.request.attributes.get('_route') starts with 'app_student' %}active{% endif %}" 
-             href="{{ path('app_student_index') }}">Students</a>
+             href="{{ path('app_student_index') }}">Étudiants</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link {% if app.request.attributes.get('_route') starts with 'app_book' %}active{% endif %}" 
-             href="{{ path('app_book_index') }}">Books</a>
+             href="{{ path('app_book_index') }}">Livres</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link {% if app.request.attributes.get('_route') starts with 'app_author' %}active{% endif %}" 
-             href="{{ path('app_author_index') }}">Authors</a>
+             href="{{ path('app_author_index') }}">Auteurs</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link {% if app.request.attributes.get('_route') starts with 'app_borrowing' %}active{% endif %}" 
-             href="{{ path('app_borrowing_index') }}">Borrowings</a>
+             href="{{ path('app_borrowing_index') }}">Emprunts</a>
         </li>
 
       </ul>
-<div class="navbar_item_custom">
+<div class="navbar_item_custom text-white">
 {% if app.user %}
-<a href="#">My compte
+<a href="#" class="text-white text-decoration-none">Mon compte
 <small>({{app.user.username | capitalize }})</small>
 </a>
-|
-<a href="{{ path('app_logout') }}">Logout</a>
+<span class="mx-2">|</span>
+<a href="{{ path('app_logout') }}" class="text-white text-decoration-none">Déconnexion</a>
 {% else %}
-<a href="{{ path('app_login') }}">Connexion</a>
-|
-<a href="{{ path('app_register') }}">Register</a>
+<a href="{{ path('app_login') }}" class="text-white text-decoration-none">Connexion</a>
+<span class="mx-2">|</span>
+<a href="{{ path('app_register') }}" class="text-white text-decoration-none">Inscription</a>
 {% endif %}
 </div>
 
-      <form class="d-flex" role="search">
+      <form class="d-flex ms-3" role="search">
         <input class="form-control me-2" type="search" placeholder="Rechercher..." aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Chercher</button>
+        <button class="btn btn-outline-light" type="submit">Chercher</button>
       </form>
     </div>
   </div>

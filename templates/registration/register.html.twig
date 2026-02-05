@@ -1,18 +1,57 @@
 {% extends 'base.html.twig' %}
 
-
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        {{ form_start(registrationForm, {'attr': {'class': 'form-card bg-white'}}) }}
+        <div class="card-header bg-white border-bottom text-center">
+            <h3 class="mb-0 text-dark">
+                <i class="fas fa-user-plus text-primary"></i>
+                Créer un compte
+            </h3>
+        </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <div class="form-group mt-3">
+            <div class="form-label text-muted">
+                <i class="fas fa-user"></i>
+                <span>{{ form_label(registrationForm.username, 'Email') }}</span>
+            </div>
+            {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre email'}}) }}
+            {{ form_errors(registrationForm.username) }}
+        </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        <div class="form-group">
+            <div class="form-label text-muted">
+                <i class="fas fa-lock"></i>
+                <span>{{ form_label(registrationForm.plainPassword, 'Mot de passe') }}</span>
+            </div>
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Choisissez un mot de passe'}}) }}
+            {{ form_errors(registrationForm.plainPassword) }}
+            <div class="form-help">Utilisez un mot de passe sécurisé d'au moins 8 caractères</div>
+        </div>
+
+        <div class="form-group pt-2">
+            <div class="form-check p-3 bg-light border rounded">
+                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                <label class="form-check-label ms-2" for="{{ registrationForm.agreeTerms.vars.id }}">
+                    J'accepte les conditions d'utilisation
+                </label>
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+        </div>
+
+        <div class="form-actions mt-4 d-flex gap-2 justify-content-between align-items-center">
+            <a href="{{ path('app_login') }}" class="btn btn-cancel">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+            <button type="submit" class="btn btn-submit">
+                <i class="fas fa-user-check"></i> S'inscrire
+            </button>
+        </div>
+        {{ form_end(registrationForm) }}
+    </div>
+</div>
 {% endblock %}
+

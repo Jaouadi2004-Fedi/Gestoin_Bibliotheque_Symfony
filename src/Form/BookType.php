@@ -16,7 +16,7 @@ class BookType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Book Title',
+                'label' => 'Titre du livre',
                 'attr' => ['class' => 'form-control'],
             ])
             ->add('authors', EntityType::class, [
@@ -26,8 +26,8 @@ class BookType extends AbstractType
                 },
                 'multiple' => true,          // permet de sélectionner plusieurs auteurs
                 'expanded' => false,         // false = select dropdown
-                'placeholder' => 'Choose one or more authors',
-                'label' => 'Author(s)',
+                'placeholder' => 'Choisissez un ou plusieurs auteurs',
+                'label' => 'Auteur(s)',
                 'attr' => ['class' => 'form-select'],
             ]);
     }

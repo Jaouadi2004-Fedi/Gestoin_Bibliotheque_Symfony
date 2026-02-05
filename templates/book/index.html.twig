@@ -1,71 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Books List{% endblock %}
+{% block title %}Liste des Livres{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-  <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-primary fw-bold">
-      <i class="bi bi-book-half"></i> Books List
-    </h1>
-    <a href="{{ path('app_book_new') }}" class="btn btn-success shadow-sm">
-      <i class="bi bi-plus-circle"></i> Add New Book
-    </a>
-  </div>
-
-  <!-- Table Card -->
-  <div class="card shadow-sm border-0">
-    <div class="card-header bg-dark text-white">
-      <h5 class="mb-0">
-        <i class="bi bi-journal-bookmark-fill"></i> Library Books
-      </h5>
+<div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+        <h1 class="fw-bold mb-0 text-dark">
+            <i class="bi bi-book-half text-primary"></i> Liste des Livres
+        </h1>
     </div>
+    <div class="col-md-6 text-md-end">
+        <a href="{{ path('app_book_new') }}" class="btn btn-submit shadow-sm">
+            <i class="bi bi-plus-circle"></i> Ajouter un nouveau livre
+        </a>
+    </div>
+</div>
 
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 text-muted">
+            <i class="bi bi-journal-bookmark-fill"></i> Livres de la bibliothèque
+        </h5>
+    </div>
     <div class="card-body p-0">
-      <table class="table table-striped table-hover mb-0 align-middle">
-        <thead class="table-dark text-center">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Author</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for book in books %}
-            <tr class="text-center">
-              <td>{{ book.id }}</td>
-              <td>{{ book.title }}</td>
-              <td>
-               {% for author in book.authors %}
-    {{ author.name }} {{ author.surname }}{% if not loop.last %}, {% endif %}
-{% endfor %}
-              </td>
-        
-              <td>
-                <div class="btn-group" role="group">
-                  <a href="{{ path('app_book_show', {'id': book.id}) }}"
-                     class="btn btn-info btn-sm text-white">
-                    <i class="bi bi-eye"></i> View
-                  </a>
-                  <a href="{{ path('app_book_edit', {'id': book.id}) }}"
-                     class="btn btn-warning btn-sm">
-                    <i class="bi bi-pencil-square"></i> Edit
-                  </a>
-                </div>
-              </td>
-            </tr>
-          {% else %}
-            <tr>
-              <td colspan="5" class="text-center text-muted py-4">
-                <i class="bi bi-inbox"></i> No books found.
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="thead-vivid-blue">
+                    <tr>
+                        <th scope="col" class="ps-4">ID</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Auteur(s)</th>
+                        <th scope="col" class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td class="ps-4 fw-bold text-secondary">#{{ book.id }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>
+                            {% for author in book.authors %}
+                                <span class="badge bg-light text-dark border">{{ author.name }} {{ author.surname }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="text-end pe-4">
+                            <div class="btn-group">
+                                <a href="{{ path('app_book_show', {'id': book.id}) }}" class="btn btn-sm btn-outline-info" title="Voir">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_book_edit', {'id': book.id}) }}" class="btn btn-sm btn-outline-warning" title="Modifier">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                            Aucun livre trouvé.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}
+
+
